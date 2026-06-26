@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Lanches - Pedidos</title>
+    
+    <!-- Carregando Tailwind CSS para estilização rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carregando FontAwesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter para uma tipografia limpa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Paleta de autoridade: Tons escuros com destaques em dourado
+                        darkBg: '#050505',
+                        brandGold: '#D4AF37', // Dourado clássico
+                        brandGoldDark: '#997A15',
+                        whatsappDark: '#111214',
+                        statusGreen: '#10b981', // Verde para "aberto"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            /* Fundo escuro com a imagem solicitada e overlay escurecido */
+            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 400px;
+            height: 100dvh; /* Força a caber na altura exata da tela mobile */
+            padding: 1rem 1.5rem; /* Margens reduzidas para otimizar espaço */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centraliza tudo, eliminando a necessidade de scroll */
+        }
+
+        .profile-ring {
+            position: relative;
+            width: 90px; /* Levemente menor para economizar espaço vertical */
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #8A6D3B 100%);
+            padding: 3px; 
+            margin-bottom: 0.5rem; /* Margem reduzida */
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+            flex-shrink: 0;
+        }
+
+        .profile-inner {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .action-button {
+            transition: transform 0.1s ease, filter 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .action-button:active {
+            transform: scale(0.98);
+        }
+
+        .action-button:hover {
+            filter: brightness(1.1);
+        }
+
+        .whatsapp-btn {
+            background-color: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid #2a2a2a;
+        }
+
+        .grid-btn {
+            background-color: rgba(15, 15, 17, 0.75); /* Fundo com leve transparência para ver a imagem atrás */
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.15); /* Borda sutil */
+            border-radius: 12px;
+            padding: 0.85rem 0.5rem; /* Preenchimento reduzido para caber sem scroll */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .grid-btn:hover {
+            background-color: rgba(23, 23, 26, 0.95);
+            border-color: #D4AF37; 
+        }
+
+        .grid-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Cores variadas e vibrantes para os ícones */
+        .icon-servicos { color: #3b82f6; } /* Azul */
+        .icon-instagram { color: #E1306C; } /* Rosa Instagram */
+        .icon-local { color: #ef4444; } /* Vermelho */
+        .icon-portfolio { color: #f97316; } /* Laranja */
+        .icon-avaliacoes { color: #eab308; } /* Amarelo */
+        .icon-equipe { color: #10b981; } /* Verde Água */
+
+        .grid-text {
+            font-size: 0.6rem;
+        .grid-btn:hover .grid-text {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <!-- Foto de Perfil com a Logo da Barbearia -->
+        <div class="profile-ring">
+            <div class="profile-inner">
+                <!-- object-contain aplicado para a logo não ser mais cortada -->
+                <img src="https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/logo_000260314.jpg?v=20260331073200" alt="Logo Essencial Barbearia" class="w-full h-full object-contain p-1">
+            </div>
+        </div>
+
+        <!-- Título e Status -->
+        <h1 class="text-lg font-extrabold uppercase tracking-wide mb-1 text-white text-center leading-tight">
+            Essencial<br>
+            <span class="text-brandGold text-[11px] tracking-widest font-semibold">Barbearia & Visagismo</span>
+        </h1>
+        <div class="flex items-center gap-1.5 text-[11px] font-bold text-statusGreen tracking-wider mb-4 uppercase">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Aberto agora</span>
+        </div>
+
+        <!-- Botões de Ação Principais -->
+        <div class="w-full space-y-2.5 mb-4">
+            <!-- Botão de Agendar (Destaque Principal em Dourado) -->
+            <button class="action-button w-full bg-brandGold text-black py-3 rounded-xl font-extrabold text-[13px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(212,175,55,0.25)] hover:bg-[#e6c456]">
+                <i class="fa-solid fa-calendar-check text-base"></i>
+                Agendar Horário
+            </button>
+
+            <!-- WhatsApp (Secundário Elegante) -->
+            <a href="#" class="action-button whatsapp-btn w-full text-white py-3 rounded-xl font-extrabold text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 block text-center">
+                <i class="fa-brands fa-whatsapp text-lg text-[#25D366]"></i>
+                Falar com Atendente
+            </a>
+        </div>
+
+        <!-- Grid de Links -->
+        <div class="w-full grid grid-cols-2 gap-2 mb-2">
+            
+            <a href="#" class="grid-btn">
+                <i class="fa-solid fa-scissors text-xl icon-servicos"></i>
+                <span class="grid-text">Serviços</span>
+            </a>
+
+            <a href="#" class="grid-btn">
+                <i class="fa-brands fa-instagram text-xl icon-instagram"></i>
+                <span class="grid-text">Instagram</span>
+            </a>
+
+            <a href="#" class="grid-btn">
+                <i class="fa-solid fa-location-dot text-xl icon-local"></i>
+                <span class="grid-text">Como Chegar</span>
+            </a>
+
+            <a href="#" class="grid-btn">
+                <i class="fa-solid fa-image text-xl icon-portfolio"></i>
+                <span class="grid-text">Cortes</span>
+            </a>
+
+            <a href="#" class="grid-btn">
+                <i class="fa-solid fa-star text-xl icon-avaliacoes"></i>
+                <span class="grid-text">Avaliações</span>
+            </a>
+
+            <a href="#" class="grid-btn">
+                <i class="fa-solid fa-users text-xl icon-equipe"></i>
+                <span class="grid-text">Nossa Equipe</span>
+            </a>
+
+        </div>
+    </div>
+
+</body>
+</html>
