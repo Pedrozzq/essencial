@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essencial Barbearia - Loja</title>
+    
+    <!-- Carregando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carregando FontAwesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#050505',
+                        brandGold: '#D4AF37',
+                        brandGoldDark: '#997A15',
+                        statusGreen: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-ring {
+            position: relative;
+            width: 120px;
+            aspect-ratio: 790 / 550;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #8A6D3B 100%);
+            padding: 3px; 
+            margin-bottom: 1rem;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .profile-inner {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .action-button {
+            width: 100%;
+            background-color: rgba(20, 20, 22, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            border-color: #D4AF37;
+            background-color: rgba(30, 30, 34, 0.95);
+        }
+
+        .action-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Cores dos Ícones Principais */
+        .icon-wifi { color: #3b82f6; }
+        .icon-pix { color: #32bcad; }
+        .icon-google { color: #DB4437; }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
+            opacity: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 12, 0.9);
+            border-radius: 0 0 12px 12px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-top: none;
+            margin-top: -10px; /* Para grudar no botão de cima */
+            padding: 0 1.25rem;
+        }
+
+        .expandable-content.active {
+            max-height: 250px;
+            opacity: 1;
+            padding: 1.5rem 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            background-color: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .copy-btn.copied {
+            background-color: #10b981 !important;
+            border-color: #10b981 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <!-- Foto de Perfil com a Logo -->
+        <div class="profile-ring">
+            <div class="profile-inner">
+                <img src="https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/logo_000260314.jpg?v=20260331073200" alt="Logo Essencial Barbearia" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <!-- Título e Saudação -->
+        <h1 class="text-xl font-extrabold uppercase tracking-wide mb-1 text-white text-center leading-tight">
+            Essencial<br>
+            <span class="text-brandGold text-[12px] tracking-widest font-semibold">Barbearia & Visagismo</span>
+        </h1>
+        <div class="flex items-center gap-2 text-xs font-bold text-brandGold tracking-wider mb-8 uppercase">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Seja Bem-vindo!</span>
+        </div>
+
+        <!-- Lista de Botões do Estabelecimento -->
+        <div class="w-full space-y-3">
+            
+            <!-- WI-FI -->
+            <div>
+                <button onclick="toggleSection('wifi-section', 'wifi-icon')" class="action-button relative z-10">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-wifi text-xl icon-wifi w-6 text-center"></i>
+                        <span class="text-[13px]">Conectar ao Wi-Fi</span>
+                    </div>
+                    <i id="wifi-icon" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                </button>
+                
+                <div id="wifi-section" class="expandable-content flex flex-col gap-3">
+                    <div class="text-sm">
+                        <p class="text-gray-400 mb-1">Rede:</p>
+                        <p class="font-bold text-white text-base">Barbearia Essencial</p>
+                    </div>
+                    <div class="text-sm">
+                        <p class="text-gray-400 mb-1">Senha:</p>
+                        <p class="font-bold text-brandGold text-lg tracking-wider">barbearia1212</p>
+                    </div>
+                    <button id="btn-copy-wifi" onclick="copyToClipboard('barbearia1212', 'btn-copy-wifi', '<i class=\'fa-regular fa-copy\'></i> Copiar Senha')" class="copy-btn w-full mt-2 py-3 rounded-lg font-bold text-[12px] uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        Copiar Senha
+                    </button>
+                </div>
+            </div>
+
+            <!-- PIX -->
+            <div>
+                <button onclick="toggleSection('pix-section', 'pix-icon')" class="action-button relative z-10">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-pix text-xl icon-pix w-6 text-center"></i>
+                        <span class="text-[13px]">Nossa Chave PIX</span>
+                    </div>
+                    <i id="pix-icon" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                </button>
+                
+                <div id="pix-section" class="expandable-content flex flex-col gap-3">
+                    <div class="text-sm">
+                        <p class="text-gray-400 mb-1">Banco:</p>
+                        <p class="font-bold text-white text-base">Banco do Brasil</p>
+                    </div>
+                    <div class="text-sm">
+                        <p class="text-gray-400 mb-1">Chave PIX (E-mail):</p>
+                        <p class="font-bold text-brandGold text-sm">barbearia@essencial.com</p>
+                    </div>
+                    <button id="btn-copy-pix" onclick="copyToClipboard('barbearia@essencial.com', 'btn-copy-pix', '<i class=\'fa-regular fa-copy\'></i> Copiar Chave PIX')" class="copy-btn w-full mt-2 py-3 rounded-lg font-bold text-[12px] uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        Copiar Chave PIX
+                    </button>
+                </div>
+            </div>
+
+            <!-- AVALIAR NO GOOGLE -->
+            <a href="#" class="action-button relative z-10 !mt-6" style="border-color: rgba(255,255,255,0.1);">
+                <div class="flex items-center gap-3">
+                    <i class="fa-brands fa-google text-xl icon-google w-6 text-center"></i>
+                    <span class="text-[13px]">Avaliar no Google</span>
+                </div>
+                <i class="fa-solid fa-star text-[#fbbc05]"></i>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Script para gerenciar a sanfona e o botão de copiar -->
+    <script>
+        // Função para abrir e fechar as seções (Sanfona)
+        function toggleSection(sectionId, iconId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(iconId);
+            
+            // Fecha as outras seções antes de abrir a nova (opcional, deixa a UI mais limpa)
+            document.querySelectorAll('.expandable-content').forEach(el => {
+                if(el.id !== sectionId) el.classList.remove('active');
+            });
+            document.querySelectorAll('.fa-chevron-down').forEach(el => {
+                if(el.id !== iconId) el.style.transform = 'rotate(0deg)';
+            });
+
+            // Alterna a seção clicada
+            if (section.classList.contains('active')) {
+                section.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                section.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Função para copiar texto e alterar o estado do botão
+        function copyToClipboard(text, btnId, originalHTML) {
+            // Cria um textarea temporário oculto para usar o execCommand (seguro para iframes)
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.top = "-9999px";
+            document.body.appendChild(textArea);
+            
+            textArea.focus();
+            textArea.select();
+
+            try {
+                // Copia o texto selecionado
+                document.execCommand('copy');
+                
+                // Pega o botão clicado e altera o visual para "Copiado!"
+                const btn = document.getElementById(btnId);
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
+                btn.classList.add('copied');
+                
+                // Restaura o botão após 2 segundos
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                }, 2000);
+                
+            } catch (err) {
+                alert('Erro ao tentar copiar o texto. Por favor, copie manualmente.');
+            }
+
+            // Remove o textarea da tela
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
