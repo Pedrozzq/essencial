@@ -238,7 +238,7 @@
             <a href="#" class="action-button relative z-10 !mt-6" style="border-color: rgba(255,255,255,0.1);">
                 <div class="flex items-center gap-3">
                     <i class="fa-brands fa-google text-xl icon-google w-6 text-center"></i>
-                    <span class="text-[13px]">Avaliar no Google</span>
+                    <span class="text-[13px]">Avalie o atendimento</span>
                 </div>
                 <i class="fa-solid fa-star text-[#fbbc05]"></i>
             </a>
