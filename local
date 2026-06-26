@@ -167,9 +167,16 @@
             Essencial<br>
             <span class="text-brandGold text-[12px] tracking-widest font-semibold">Barbearia & Visagismo</span>
         </h1>
-        <div class="flex items-center gap-2 text-xs font-bold text-brandGold tracking-wider mb-8 uppercase">
-            <i class="fa-solid fa-mug-hot"></i>
-            <span>Seja Bem-vindo!</span>
+        <div class="flex flex-col items-center mb-8">
+            <div class="flex items-center gap-2 text-xs font-bold text-brandGold tracking-wider mb-1.5 uppercase">
+                <i class="fa-solid fa-mug-hot"></i>
+                <span>Seja Bem-vindo!</span>
+            </div>
+            <!-- Novo Relógio -->
+            <div class="flex items-center gap-1.5 text-[11px] text-gray-300 font-medium tracking-widest">
+                <i class="fa-regular fa-clock"></i>
+                <span id="current-time">--:--</span>
+            </div>
         </div>
 
         <!-- Lista de Botões do Estabelecimento -->
@@ -298,6 +305,24 @@
             // Remove o textarea da tela
             document.body.removeChild(textArea);
         }
+
+        // Função para o relógio dinâmico
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const timeString = `${hours}:${minutos}`;
+            const timeElement = document.getElementById('current-time');
+            
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+
+        // Inicia o relógio imediatamente e atualiza a cada 1 segundo
+        updateClock();
+        setInterval(updateClock, 1000);
     </script>
 </body>
 </html>
