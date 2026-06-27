@@ -5,37 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essencial Barbearia - Loja</title>
     
-    <!-- Carregando Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Carregando FontAwesome para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        darkBg: '#050505',
                         brandGold: '#D4AF37',
+                        brandGoldLight: '#F3E5AB',
                         brandGoldDark: '#997A15',
-                        statusGreen: '#10b981',
                     }
                 }
             }
         }
     </script>
+
     <style>
         body {
-            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
+            background: url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -47,272 +41,285 @@
             justify-content: center;
             align-items: center;
             margin: 0;
+            position: relative;
         }
 
-        .mobile-container {
+        /* Overlay escuro radial para focar no centro */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.95) 100%);
+            z-index: 0;
+        }
+
+        .app-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Efeito de Vidro (Glassmorphism) */
+        .glass-panel {
+            background: rgba(20, 20, 25, 0.45);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animação do anel da foto */
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
         }
 
         .profile-ring {
             position: relative;
-            width: 120px;
+            width: 130px;
             aspect-ratio: 790 / 550;
-            border-radius: 12px;
+            border-radius: 16px;
             background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #8A6D3B 100%);
             padding: 3px; 
-            margin-bottom: 1rem;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+            margin-bottom: 1.5rem;
+            animation: borderGlow 4s infinite ease-in-out;
         }
 
         .profile-inner {
             width: 100%;
             height: 100%;
-            background-color: transparent;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000;
+            border-radius: 14px;
             overflow: hidden;
         }
 
-        .action-button {
+        .btn-premium {
             width: 100%;
-            background-color: rgba(20, 20, 22, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: white;
-            padding: 1rem;
-            border-radius: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.2s ease;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .action-button:hover {
-            border-color: #D4AF37;
-            background-color: rgba(30, 30, 34, 0.95);
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
 
-        .action-button:active {
-            transform: scale(0.98);
+        .btn-premium:hover::before {
+            transform: translateX(100%);
         }
 
-        /* Cores dos Ícones Principais */
-        .icon-wifi { color: #3b82f6; }
-        .icon-pix { color: #32bcad; }
-        .icon-google { color: #DB4437; }
+        .btn-premium:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            background: rgba(30, 30, 35, 0.6);
+        }
+
+        .btn-premium:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Conteúdo expansível (Sanfona fluida) */
+        .expandable-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+
+        .expandable-wrapper.active {
+            grid-template-rows: 1fr;
+        }
 
         .expandable-content {
-            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
-            opacity: 0;
             width: 100%;
-            background-color: rgba(10, 10, 12, 0.9);
-            border-radius: 0 0 12px 12px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .expandable-inner {
+            padding: 1.5rem;
+            margin-top: -10px;
+            border-radius: 0 0 14px 14px;
             border-top: none;
-            margin-top: -10px; /* Para grudar no botão de cima */
-            padding: 0 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .expandable-content.active {
-            max-height: 250px;
-            opacity: 1;
-            padding: 1.5rem 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .copy-btn {
-            background-color: transparent;
-            border: 1px solid #D4AF37;
+        /* Botão de copiar estilo tecnológico */
+        .btn-copy {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: #D4AF37;
-            transition: all 0.2s ease;
+            border-radius: 10px;
+            padding: 0.875rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #D4AF37;
+        }
+
+        .btn-copy.success {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: #10b981 !important;
+            color: #10b981 !important;
+        }
+
+        .icon-rotator {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .copy-btn:hover {
-            background-color: rgba(212, 175, 55, 0.1);
-        }
-
-        .copy-btn.copied {
-            background-color: #10b981 !important;
-            border-color: #10b981 !important;
-            color: white !important;
+        .icon-rotator.active {
+            transform: rotate(180deg);
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-container">
+    <div class="app-container">
         
-        <!-- Foto de Perfil com a Logo -->
+        <!-- Foto de Perfil Premium -->
         <div class="profile-ring">
             <div class="profile-inner">
                 <img src="https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/logo_000260314.jpg?v=20260331073200" alt="Logo Essencial Barbearia" class="w-full h-full object-cover">
             </div>
         </div>
 
-        <!-- Título e Saudação -->
-        <h1 class="text-xl font-extrabold uppercase tracking-wide mb-1 text-white text-center leading-tight">
-            Essencial<br>
-            <span class="text-brandGold text-[12px] tracking-widest font-semibold">Barbearia & Visagismo</span>
-        </h1>
-        <div class="flex flex-col items-center mb-8">
-            <div class="flex items-center gap-2 text-xs font-bold text-brandGold tracking-wider mb-1.5 uppercase">
-                <i class="fa-solid fa-mug-hot"></i>
-                <span>Seja Bem-vindo!</span>
-            </div>
-            <!-- Novo Relógio -->
-            <div class="flex items-center gap-1.5 text-[11px] text-gray-300 font-medium tracking-widest">
-                <i class="fa-regular fa-clock"></i>
-                <span id="current-time">--:--</span>
+        <!-- Títulos e Textos -->
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-extrabold uppercase tracking-wide text-white leading-tight mb-1">
+                Essencial
+            </h1>
+            <p class="text-brandGold text-[11px] tracking-[0.2em] font-semibold mb-4 uppercase">
+                Barbearia & Visagismo
+            </p>
+            
+            <!-- Badge Digital do Relógio (Corrigido) -->
+            <div class="inline-flex items-center gap-2 glass-panel px-4 py-1.5 rounded-full border-white/10">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Bem-vindo</span>
+                <span class="text-gray-500 text-xs">|</span>
+                <i class="fa-regular fa-clock text-brandGold text-xs"></i>
+                <span id="current-time" class="text-xs font-semibold tracking-wider text-white">--:--</span>
             </div>
         </div>
 
-        <!-- Lista de Botões do Estabelecimento -->
         <div class="w-full space-y-3">
             
-            <!-- WI-FI -->
+            <!-- WI-FI MODULE -->
             <div>
-                <button onclick="toggleSection('wifi-section', 'wifi-icon')" class="action-button relative z-10">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-wifi text-xl icon-wifi w-6 text-center"></i>
-                        <span class="text-[13px]">Conectar ao Wi-Fi</span>
+                <button onclick="toggleAccordion('wifi-wrapper', 'wifi-icon', this)" class="glass-panel btn-premium relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                            <i class="fa-solid fa-wifi text-blue-400"></i>
+                        </div>
+                        <span class="text-sm font-bold tracking-wide text-gray-100">Rede Wi-Fi</span>
                     </div>
-                    <i id="wifi-icon" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    <i id="wifi-icon" class="fa-solid fa-chevron-down text-gray-400 icon-rotator"></i>
                 </button>
                 
-                <div id="wifi-section" class="expandable-content flex flex-col gap-3">
-                    <div class="text-sm">
-                        <p class="text-gray-400 mb-1">Rede:</p>
-                        <p class="font-bold text-white text-base">Barbearia Essencial</p>
+                <div id="wifi-wrapper" class="expandable-wrapper">
+                    <div class="expandable-content">
+                        <div class="glass-panel expandable-inner">
+                            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Rede</span>
+                                <span class="font-bold text-white text-sm">Barbearia Essencial</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-1">
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Senha</span>
+                                <span class="font-bold text-brandGold text-base tracking-widest font-mono">barbearia1212</span>
+                            </div>
+                            <button id="btn-wifi" onclick="copyText('barbearia1212', 'btn-wifi')" class="btn-copy w-full mt-1">
+                                <i class="fa-regular fa-copy"></i> Copiar Senha
+                            </button>
+                        </div>
                     </div>
-                    <div class="text-sm">
-                        <p class="text-gray-400 mb-1">Senha:</p>
-                        <p class="font-bold text-brandGold text-lg tracking-wider">barbearia1212</p>
-                    </div>
-                    <button id="btn-copy-wifi" onclick="copyToClipboard('barbearia1212', 'btn-copy-wifi', '<i class=\'fa-regular fa-copy\'></i> Copiar Senha')" class="copy-btn w-full mt-2 py-3 rounded-lg font-bold text-[12px] uppercase tracking-wider flex items-center justify-center gap-2">
-                        <i class="fa-regular fa-copy"></i>
-                        Copiar Senha
-                    </button>
                 </div>
             </div>
 
-            <!-- PIX -->
+            <!-- PIX MODULE -->
             <div>
-                <button onclick="toggleSection('pix-section', 'pix-icon')" class="action-button relative z-10">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-brands fa-pix text-xl icon-pix w-6 text-center"></i>
-                        <span class="text-[13px]">Nossa Chave PIX</span>
+                <button onclick="toggleAccordion('pix-wrapper', 'pix-icon', this)" class="glass-panel btn-premium relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-teal-500/10 flex items-center justify-center border border-teal-500/20">
+                            <i class="fa-brands fa-pix text-teal-400"></i>
+                        </div>
+                        <span class="text-sm font-bold tracking-wide text-gray-100">Chave PIX</span>
                     </div>
-                    <i id="pix-icon" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    <i id="pix-icon" class="fa-solid fa-chevron-down text-gray-400 icon-rotator"></i>
                 </button>
                 
-                <div id="pix-section" class="expandable-content flex flex-col gap-3">
-                    <div class="text-sm">
-                        <p class="text-gray-400 mb-1">Banco:</p>
-                        <p class="font-bold text-white text-base">Banco do Brasil</p>
+                <div id="pix-wrapper" class="expandable-wrapper">
+                    <div class="expandable-content">
+                        <div class="glass-panel expandable-inner">
+                            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Banco</span>
+                                <span class="font-bold text-white text-sm">Banco do Brasil</span>
+                            </div>
+                            <div class="flex flex-col gap-1 pb-1">
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Chave PIX (E-mail)</span>
+                                <span class="font-bold text-brandGold text-sm tracking-wide">barbearia@essencial.com</span>
+                            </div>
+                            <button id="btn-pix" onclick="copyText('barbearia@essencial.com', 'btn-pix')" class="btn-copy w-full mt-1">
+                                <i class="fa-regular fa-copy"></i> Copiar Chave
+                            </button>
+                        </div>
                     </div>
-                    <div class="text-sm">
-                        <p class="text-gray-400 mb-1">Chave PIX (E-mail):</p>
-                        <p class="font-bold text-brandGold text-sm">barbearia@essencial.com</p>
-                    </div>
-                    <button id="btn-copy-pix" onclick="copyToClipboard('barbearia@essencial.com', 'btn-copy-pix', '<i class=\'fa-regular fa-copy\'></i> Copiar Chave PIX')" class="copy-btn w-full mt-2 py-3 rounded-lg font-bold text-[12px] uppercase tracking-wider flex items-center justify-center gap-2">
-                        <i class="fa-regular fa-copy"></i>
-                        Copiar Chave PIX
-                    </button>
                 </div>
             </div>
 
-            <!-- AVALIAR NO GOOGLE -->
-            <a href="#" class="action-button relative z-10 !mt-6" style="border-color: rgba(255,255,255,0.1);">
-                <div class="flex items-center gap-3">
-                    <i class="fa-brands fa-google text-xl icon-google w-6 text-center"></i>
-                    <span class="text-[13px]">Avalie o atendimento</span>
+            <!-- GOOGLE REVIEW -->
+            <a href="#" class="glass-panel btn-premium relative z-10 !mt-6 group">
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 group-hover:bg-red-500/20 transition-colors">
+                        <i class="fa-brands fa-google text-red-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Avaliar no Google</span>
                 </div>
-                <i class="fa-solid fa-star text-[#fbbc05]"></i>
+                <div class="flex gap-1">
+                    <i class="fa-solid fa-star text-[#fbbc05] text-xs"></i>
+                    <i class="fa-solid fa-star text-[#fbbc05] text-xs"></i>
+                    <i class="fa-solid fa-star text-[#fbbc05] text-xs"></i>
+                </div>
             </a>
 
         </div>
     </div>
 
-    <!-- Script para gerenciar a sanfona e o botão de copiar -->
     <script>
-        // Função para abrir e fechar as seções (Sanfona)
-        function toggleSection(sectionId, iconId) {
-            const section = document.getElementById(sectionId);
-            const icon = document.getElementById(iconId);
-            
-            // Fecha as outras seções antes de abrir a nova (opcional, deixa a UI mais limpa)
-            document.querySelectorAll('.expandable-content').forEach(el => {
-                if(el.id !== sectionId) el.classList.remove('active');
-            });
-            document.querySelectorAll('.fa-chevron-down').forEach(el => {
-                if(el.id !== iconId) el.style.transform = 'rotate(0deg)';
-            });
-
-            // Alterna a seção clicada
-            if (section.classList.contains('active')) {
-                section.classList.remove('active');
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                section.classList.add('active');
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        // Função para copiar texto e alterar o estado do botão
-        function copyToClipboard(text, btnId, originalHTML) {
-            // Cria um textarea temporário oculto para usar o execCommand (seguro para iframes)
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed"; 
-            textArea.style.top = "-9999px";
-            document.body.appendChild(textArea);
-            
-            textArea.focus();
-            textArea.select();
-
-            try {
-                // Copia o texto selecionado
-                document.execCommand('copy');
-                
-                // Pega o botão clicado e altera o visual para "Copiado!"
-                const btn = document.getElementById(btnId);
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
-                btn.classList.add('copied');
-                
-                // Restaura o botão após 2 segundos
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.classList.remove('copied');
-                }, 2000);
-                
-            } catch (err) {
-                alert('Erro ao tentar copiar o texto. Por favor, copie manualmente.');
-            }
-
-            // Remove o textarea da tela
-            document.body.removeChild(textArea);
-        }
-
-        // Função para o relógio dinâmico
+        // Lógica do Relógio Digital corrigida
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0'); // Variável corrigida (minutes)
             
-            const timeString = `${hours}:${minutos}`;
+            const timeString = `${hours}:${minutes}`;
             const timeElement = document.getElementById('current-time');
             
             if (timeElement) {
@@ -320,9 +327,64 @@
             }
         }
 
-        // Inicia o relógio imediatamente e atualiza a cada 1 segundo
-        updateClock();
-        setInterval(updateClock, 1000);
+        // Garante que o relógio só inicie quando a página carregar por completo
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            setInterval(updateClock, 1000);
+        });
+
+        // Lógica Moderna de Sanfona usando CSS Grid transition
+        function toggleAccordion(wrapperId, iconId, btnElement) {
+            const wrapper = document.getElementById(wrapperId);
+            const icon = document.getElementById(iconId);
+            const isOpening = !wrapper.classList.contains('active');
+
+            // Fecha todos os outros primeiro
+            document.querySelectorAll('.expandable-wrapper').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.icon-rotator').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.btn-premium').forEach(el => el.style.borderColor = 'rgba(255, 255, 255, 0.08)');
+
+            // Abre o clicado (se estava fechado)
+            if (isOpening) {
+                wrapper.classList.add('active');
+                icon.classList.add('active');
+                btnElement.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+            }
+        }
+
+        // Função de cópia com feedback visual aprimorado
+        function copyText(text, btnId) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            
+            textArea.focus();
+            textArea.select();
+
+            const btn = document.getElementById(btnId);
+            const originalHTML = btn.innerHTML;
+
+            try {
+                document.execCommand('copy');
+                
+                // Animação de sucesso
+                btn.innerHTML = '<i class="fa-solid fa-check-double"></i> Copiado!';
+                btn.classList.add('success');
+                
+                // Retorna ao estado normal
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('success');
+                }, 2500);
+                
+            } catch (err) {
+                alert('Erro ao copiar. Tente manualmente.');
+            }
+
+            document.body.removeChild(textArea);
+        }
     </script>
 </body>
 </html>
