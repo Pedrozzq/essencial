@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essencial - Barbearia & Visagismo</title>
+    <title>Essencial Barbearia - Link na Bio</title>
     
-    <!-- Carregando Tailwind CSS para estilização rápida -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Carregando FontAwesome para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts: Inter para uma tipografia limpa -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -20,25 +15,21 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        // Paleta de autoridade: Tons escuros com destaques em dourado
-                        darkBg: '#050505',
-                        brandGold: '#D4AF37', // Dourado clássico
+                        brandGold: '#D4AF37',
+                        brandGoldLight: '#F3E5AB',
                         brandGoldDark: '#997A15',
-                        whatsappDark: '#111214',
-                        statusGreen: '#10b981', // Verde para "aberto"
+                        statusGreen: '#10b981',
                     }
                 }
             }
         }
     </script>
+
     <style>
         body {
-            /* Fundo escuro com a imagem solicitada e overlay escurecido */
-            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
+            background: url('https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/p_foto_000736915.jpg?v=20260408200400');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -50,172 +41,321 @@
             justify-content: center;
             align-items: center;
             margin: 0;
+            position: relative;
         }
 
-        .mobile-container {
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.95) 100%);
+            z-index: 0;
+        }
+
+        .app-container {
             width: 100%;
-            max-width: 400px;
-            height: 100dvh; /* Força a caber na altura exata da tela mobile */
-            padding: 1rem 1.5rem; /* Margens reduzidas para otimizar espaço */
+            max-width: 420px;
+            padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Centraliza tudo, eliminando a necessidade de scroll */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Panel Base */
+        .glass-panel {
+            background: rgba(20, 20, 25, 0.45);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
         }
 
         .profile-ring {
             position: relative;
-            width: 140px; /* Largura ajustada */
-            aspect-ratio: 790 / 550; /* Acompanha a proporção exata da foto para eliminar os espaços/bordas pretas */
-            border-radius: 12px; /* Bordas arredondadas harmonizando com os botões abaixo */
+            width: 140px;
+            aspect-ratio: 1 / 1; /* Square format based on image */
+            border-radius: 16px;
             background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #8A6D3B 100%);
             padding: 3px; 
-            margin-bottom: 0.5rem; /* Margem reduzida */
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-            flex-shrink: 0;
+            margin-bottom: 1rem;
+            animation: borderGlow 4s infinite ease-in-out;
         }
 
         .profile-inner {
             width: 100%;
             height: 100%;
-            background-color: transparent; /* Fundo agora é transparente */
-            border-radius: 10px; /* Acompanha o arredondamento externo sutilmente */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #fff; /* White background for the logo as in the image */
+            border-radius: 14px;
             overflow: hidden;
-        }
-
-        .action-button {
-            transition: transform 0.1s ease, filter 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .action-button:active {
-            transform: scale(0.98);
-        }
-
-        .action-button:hover {
-            filter: brightness(1.1);
-        }
-
-        .whatsapp-btn {
-            background-color: rgba(12, 12, 12, 0.8);
-            backdrop-filter: blur(5px);
-            border: 1px solid #2a2a2a;
-        }
-
-        .grid-btn {
-            background-color: rgba(15, 15, 17, 0.75); /* Fundo com leve transparência para ver a imagem atrás */
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(212, 175, 55, 0.15); /* Borda sutil */
-            border-radius: 12px;
-            padding: 0.85rem 0.5rem; /* Preenchimento reduzido para caber sem scroll */
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #8A6D3B 100%);
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 800;
+            text-transform: uppercase;
             color: white;
-            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
         }
 
-        .grid-btn:hover {
-            background-color: rgba(23, 23, 26, 0.95);
-            border-color: #D4AF37; 
+        .btn-secondary:hover {
+            border-color: rgba(37, 211, 102, 0.5); /* Subtle green border on hover for WhatsApp */
+            background: rgba(20, 20, 20, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary:active {
+            transform: translateY(1px) scale(0.98);
         }
 
-        .grid-btn:active {
-            transform: scale(0.97);
+        .btn-premium {
+            width: 100%;
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: rgba(20, 20, 25, 0.45);
+            backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Cores variadas e vibrantes para os ícones */
-        .icon-servicos { color: #3b82f6; } /* Azul */
-        .icon-instagram { color: #E1306C; } /* Rosa Instagram */
-        .icon-local { color: #ef4444; } /* Vermelho */
-        .icon-portfolio { color: #f97316; } /* Laranja */
-        .icon-avaliacoes { color: #eab308; } /* Amarelo */
-        .icon-equipe { color: #10b981; } /* Verde Água */
-
-        .grid-text {
-            font-size: 0.6rem;
-        .grid-btn:hover .grid-text {
-            color: #fff;
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
+
+        .btn-premium:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-premium:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            background: rgba(30, 30, 35, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-premium:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="mobile-container">
+    <div class="app-container">
         
-        <!-- Foto de Perfil com a Logo da Barbearia -->
+        <!-- Profile Picture (Square as in image) -->
         <div class="profile-ring">
             <div class="profile-inner">
-                <!-- object-cover garante que a imagem preencha as extremidades no novo formato -->
-                <img src="https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/logo_000260314.jpg?v=20260331073200" alt="Logo Essencial Barbearia" class="w-full h-full object-cover">
+                <img src="https://d39p7gjvbgwtet.cloudfront.net/Estabelecimentos/260314/790x550/logo_000260314.jpg?v=20260331073200" alt="Logo Essencial Barbearia" class="w-full h-full object-contain">
             </div>
         </div>
 
-        <!-- Título e Status -->
-        <h1 class="text-lg font-extrabold uppercase tracking-wide mb-1 text-white text-center leading-tight">
-            Essencial<br>
-            <span class="text-brandGold text-[11px] tracking-widest font-semibold">Barbearia & Visagismo</span>
-        </h1>
-        <div class="flex items-center gap-1.5 text-[11px] font-bold text-statusGreen tracking-wider mb-4 uppercase">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>Aberto agora</span>
+        <!-- Titles and Status -->
+        <div class="text-center mb-6 w-full">
+            <h1 class="text-2xl font-extrabold uppercase tracking-wide text-white leading-tight mb-1">
+                ESSENCIAL
+            </h1>
+            <p class="text-brandGold text-[11px] tracking-[0.2em] font-bold mb-3 uppercase">
+                BARBEARIA & VISAGISMO
+            </p>
+            
+            <!-- Dynamic Status Indicator -->
+            <div id="status-container" class="flex items-center justify-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-gray-500">
+                <i id="status-icon" class="fa-solid fa-circle-notch fa-spin"></i>
+                <span id="status-text">CARREGANDO...</span>
+            </div>
         </div>
 
-        <!-- Botões de Ação Principais -->
-        <div class="w-full space-y-2.5 mb-4">
-            <!-- Botão de Agendar (Destaque Principal em Dourado) -->
-            <button class="action-button w-full bg-brandGold text-black py-3 rounded-xl font-extrabold text-[13px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(212,175,55,0.25)] hover:bg-[#e6c456]">
-                <i class="fa-solid fa-calendar-check text-base"></i>
-                Agendar Horário
+        <div class="w-full space-y-3 mb-6">
+            <!-- Primary Action Button: Schedule -->
+            <button class="btn-primary">
+                <i class="fa-regular fa-calendar-check text-lg"></i>
+                <span class="text-sm tracking-wide">AGENDAR HORÁRIO</span>
             </button>
 
-            <!-- WhatsApp (Secundário Elegante) -->
-            <a href="#" class="action-button whatsapp-btn w-full text-white py-3 rounded-xl font-extrabold text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 block text-center">
-                <i class="fa-brands fa-whatsapp text-lg text-[#25D366]"></i>
-                Falar com Atendente
-            </a>
+            <!-- Secondary Action Button: WhatsApp -->
+            <button class="btn-secondary group">
+                <i class="fa-brands fa-whatsapp text-[#25D366] text-xl group-hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.8)] transition-all"></i>
+                <span class="text-sm tracking-wide text-gray-100">FALAR COM ATENDENTE</span>
+            </button>
         </div>
 
-        <!-- Grid de Links -->
-        <div class="w-full grid grid-cols-2 gap-2 mb-2">
+        <div class="w-full space-y-3">
             
-            <a href="#" class="grid-btn">
-                <i class="fa-solid fa-scissors text-xl icon-servicos"></i>
-                <span class="grid-text">Serviços</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                        <i class="fa-solid fa-scissors text-blue-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Serviços</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-500 group-hover:text-brandGold transition-colors"></i>
             </a>
 
-            <a href="#" class="grid-btn">
-                <i class="fa-brands fa-instagram text-xl icon-instagram"></i>
-                <span class="grid-text">Instagram</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center border border-pink-500/20 group-hover:bg-pink-500/20 transition-colors">
+                        <i class="fa-brands fa-instagram text-pink-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Instagram</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-500 group-hover:text-brandGold transition-colors"></i>
             </a>
 
-            <a href="#" class="grid-btn">
-                <i class="fa-solid fa-location-dot text-xl icon-local"></i>
-                <span class="grid-text">Como Chegar</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 group-hover:bg-red-500/20 transition-colors">
+                        <i class="fa-solid fa-location-dot text-red-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Como Chegar</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-500 group-hover:text-brandGold transition-colors"></i>
             </a>
 
-            <a href="#" class="grid-btn">
-                <i class="fa-solid fa-image text-xl icon-portfolio"></i>
-                <span class="grid-text">Cortes</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center border border-orange-500/20 group-hover:bg-orange-500/20 transition-colors">
+                        <i class="fa-solid fa-image text-orange-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Cortes</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-500 group-hover:text-brandGold transition-colors"></i>
             </a>
 
-            <a href="#" class="grid-btn">
-                <i class="fa-solid fa-star text-xl icon-avaliacoes"></i>
-                <span class="grid-text">Avaliações</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 group-hover:bg-yellow-500/20 transition-colors">
+                        <i class="fa-solid fa-star text-yellow-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Avaliações</span>
+                </div>
+                <div class="flex gap-1">
+                    <i class="fa-solid fa-star text-yellow-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-yellow-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-yellow-500 text-[10px]"></i>
+                </div>
             </a>
 
-            <a href="#" class="grid-btn">
-                <i class="fa-solid fa-users text-xl icon-equipe"></i>
-                <span class="grid-text">Nossa Equipe</span>
+            <a href="#" class="btn-premium group">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors">
+                        <i class="fa-solid fa-users text-emerald-400"></i>
+                    </div>
+                    <span class="text-sm font-bold tracking-wide text-gray-100">Nossa Equipe</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-500 group-hover:text-brandGold transition-colors"></i>
             </a>
 
         </div>
     </div>
 
+    <!-- Script de Funcionamento (Horário) -->
+    <script>
+        function checkBusinessHours() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            
+            // Converte o tempo atual para minutos (facilita o cálculo)
+            const currentMinutes = (hours * 60) + minutes;
+            
+            const openTime = 9 * 60; // 09:00 = 540 minutos
+            const closeTime = 20 * 60; // 20:00 = 1200 minutos
+            const closingSoonTime = closeTime - 30; // 19:30 = 1170 minutos
+
+            const statusContainer = document.getElementById('status-container');
+            const statusIcon = document.getElementById('status-icon');
+            const statusText = document.getElementById('status-text');
+
+            if (currentMinutes >= openTime && currentMinutes < closingSoonTime) {
+                // Aberto (09:00 - 19:29)
+                statusContainer.className = 'flex items-center justify-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-statusGreen';
+                statusIcon.className = 'fa-solid fa-circle-check';
+                statusText.innerText = 'ABERTO AGORA';
+            } 
+            else if (currentMinutes >= closingSoonTime && currentMinutes < closeTime) {
+                // Fecha em breve (19:30 - 19:59)
+                statusContainer.className = 'flex items-center justify-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-yellow-500';
+                statusIcon.className = 'fa-regular fa-clock fa-bounce';
+                statusText.innerText = 'FECHA EM BREVE';
+            } 
+            else {
+                // Fechado (20:00 - 08:59)
+                statusContainer.className = 'flex items-center justify-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-red-500';
+                statusIcon.className = 'fa-solid fa-door-closed';
+                statusText.innerText = 'FECHADO';
+            }
+        }
+
+        // Executa a função imediatamente ao carregar
+        checkBusinessHours();
+        
+        // Atualiza a cada 1 minuto (60000 milissegundos) para mudar sozinho se o cliente ficar com a aba aberta
+        setInterval(checkBusinessHours, 60000);
+    </script>
 </body>
 </html>
